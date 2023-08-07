@@ -1,5 +1,6 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
+const mongoose = require("mongoose")
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -13,4 +14,6 @@ mongoose.connect(process.env.MONGODB_URL)
             console.log(`I'm listening on port ${PORT}`);
         });
     }
-    )
+    ).catch((err)=>{
+        console.log(err);
+    })
