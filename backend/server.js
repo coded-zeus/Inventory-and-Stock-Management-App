@@ -9,7 +9,7 @@ const app = express();
 
 //middlewares
 app.use(express.json());
-app.use(urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //
