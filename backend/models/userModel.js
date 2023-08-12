@@ -23,6 +23,7 @@ const userSchema = mongoose.Schema({
     photo:{
         type: String,
         required: false,
+        default: "https://www.google.com/photos"
     },
     phonenumber:{
         type: String,

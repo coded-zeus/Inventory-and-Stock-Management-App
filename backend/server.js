@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const userRoute = require('./routes/userRoute');
+const errorHandler = require('./middlewares/errorMiddleware');
 
 const app = express();
 
@@ -13,12 +14,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //
+
 app.use("/api/users", userRoute);
 
 //routes
 app.get('/', (req, res)=>{
     res.send("Welcome to homepage")
 });
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5500;
 
