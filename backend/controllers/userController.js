@@ -50,6 +50,7 @@ const registerUser = async (req, res, next) => {
       email,
       photo,
       phonenumber,
+      password,
       bio,
       token,
     });
@@ -100,6 +101,7 @@ const loginUser = async (req, res, next) => {
         email,
         photo,
         phonenumber,
+        password,
         bio,
         token,
       });
@@ -128,7 +130,8 @@ const logoutUser = async (req, res,next) => {
 
 const getUserProfile = async (req, res, next) => {
     try {
-        const user = await User.findById(req.user._id);
+        const user = await User.findById(req.user._id).select("-password");
+
         const { _id, name, email, photo, phonenumber, bio } = user;
         res.status(200).json({
         _id,
@@ -142,9 +145,42 @@ const getUserProfile = async (req, res, next) => {
         next(error);
     }
 }
+
+const updateUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.user._id)
+        
+        if (user) {
+        user.name = req.body.name || user.name;
+        user.email = user.email
+        user.photo = user.photo || req.body.photo;
+        user.phonenumber = user.phonenumber || req.body.phonenumber;
+        user.bio = user.bio || req.body.bio;
+
+        const updatedUser = await user.save();
+
+        const { _id, name, email, photo, phonenumber, bio } = updatedUser;
+        res.status(200).json({
+            _id,
+            name,
+            email,
+            photo,
+            phonenumber,
+            bio,
+        });
+        } else {
+        res.status(404);
+        return next(new Error("User not found"));
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
   registerUser,
   loginUser,
   logoutUser,
-  getUserProfile
+  getUserProfile,
+  updateUser
 };
