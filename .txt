@@ -1,0 +1,4 @@
+create handlesignup and handlelogin in page.js
+
+
+pass as props to the components

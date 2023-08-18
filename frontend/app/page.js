@@ -1,8 +1,12 @@
-import Login from "@/pages/login";
-import Image from "next/image";
+import Homepage from "@/pages/homepage";
 import React from "react";
-import "./globals.css";
 
-export default function Home() {
-  return <Login />;
-}
+const Home = () => {
+  return (
+    <React.Fragment>
+      <Homepage />
+    </React.Fragment>
+  );
+};
+
+export default Home;
